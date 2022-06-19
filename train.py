@@ -15,23 +15,23 @@ with open('intents.json', 'r', encoding="UTF-8") as f:
 all_words = []
 tags = []
 xy = []
-# loop through each sentence in our intents patterns
+#각 문장에 loop을 돌면서 패턴을 찾아냄
 for intent in intents['intents']:
     tag = intent['tag']
-    # add to tag list
+    # tag list에 추가
     tags.append(tag)
     for pattern in intent['patterns']:
-        # tokenize each word in the sentence
+        # tokenize
         w = tokenize(pattern)
-        # add to our words list
+        # word list에 추가
         all_words.extend(w)
-        # add to xy pair
+        # xy pair에 추가
         xy.append((w, tag))
 
-# stem and lower each word
+# stem 하고 필터링을 함
 ignore_words = ['?', '.', '!']
 all_words = [stem(w) for w in all_words if w not in ignore_words]
-# remove duplicates and sort
+# 반복되는 것을 삭제하고 정렬함
 all_words = sorted(set(all_words))
 tags = sorted(set(tags))
 
@@ -39,7 +39,7 @@ print(len(xy), "patterns")
 print(len(tags), "tags:", tags)
 print(len(all_words), "unique stemmed words:", all_words)
 
-# create training data
+#트레이닝 데이터 생성
 X_train = []
 y_train = []
 for (pattern_sentence, tag) in xy:
@@ -53,7 +53,7 @@ for (pattern_sentence, tag) in xy:
 X_train = np.array(X_train)
 y_train = np.array(y_train)
 
-# Hyper-parameters 
+# 하이퍼 파라미터
 num_epochs = 1000
 batch_size = 8
 learning_rate = 0.001
@@ -69,14 +69,15 @@ class ChatDataset(Dataset):
         self.x_data = X_train
         self.y_data = y_train
 
-    # support indexing such that dataset[i] can be used to get i-th sample
+    # 인덱싱 지원 함수
     def __getitem__(self, index):
         return self.x_data[index], self.y_data[index]
 
-    # we can call len(dataset) to return the size
+    #사이즈 리턴 함수
     def __len__(self):
         return self.n_samples
 
+#데이터 셋과 모델을 불러오고 모델 인스턴트 생성
 dataset = ChatDataset()
 train_loader = DataLoader(dataset=dataset,
                           batch_size=batch_size,
@@ -85,25 +86,24 @@ train_loader = DataLoader(dataset=dataset,
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+#인스턴스를 model에 있는 클래스로 생성함
 model = NeuralNet(input_size, hidden_size, output_size).to(device)
 
-# Loss and optimizer
+#loss와 optimize
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-# Train the model
+#모델을 실제로 train
 for epoch in range(num_epochs):
     for (words, labels) in train_loader:
         words = words.to(device)
         labels = labels.to(dtype=torch.long).to(device)
         
-        # Forward pass
+        # 포워드 패스
         outputs = model(words)
-        # if y would be one-hot, we must apply
-        # labels = torch.max(labels, 1)[1]
         loss = criterion(outputs, labels)
         
-        # Backward and optimize
+        # backword와 optimize
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -123,6 +123,7 @@ data = {
 "tags": tags
 }
 
+#학습 저장
 FILE = "data.pth"
 torch.save(data, FILE)
 
