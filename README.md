@@ -19,28 +19,35 @@ http://3.39.248.195/ - 이 IP에 현재 배포되어 있는 상태입니다.
 
 ### 가상 환경을 만들어 줍니다.
 
+```
 $ git clone https://github.com/python-engineer/chatbot-deployment.git
 $ cd chatbot-deployment
 $ python3 -m venv venv
 $ . venv/bin/activate
+```
 
 ### dependency를 설치해 줍니다.
 
+```
 $ (venv) pip install Flask torch torchvision nltk
-Install nltk package
+```
 
 ### 학습을 위해 nltk의 punkt를 다운받아 줍니다.
 
+```
 $ (venv) python
 
 > > > import nltk
 > > > nltk.download('punkt')
+```
 
 ### 학습을 시킵니다.
 
+```
 $ (venv) python train.py
+```
 
-![ex_screenshot](./img/train.png)
+<img src="./img/train.png" width="200" height="400"/>
 
 ### 커멘드 라인에서 예시로 테스트를 해볼 수 있도록 하였습니다.
 
