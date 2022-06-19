@@ -6,16 +6,14 @@ http://3.39.248.195/ - 이 IP에 현재 배포되어 있는 상태입니다.
 
 ## 사용방법
 
-![ex_screenshot](./img/0.png)
+<img src="./img/0.png" width="400"/>
 채팅 버튼을 클릭합니다
-![ex_screenshot](./img/1.png)
+<img src="./img/1.png" width="400"/>
 원하는 주제에 대한 질문을 합니다.
-![ex_screenshot](./img/2.png)
+<img src="./img/2.png" width="400"/>
 질문을 받습니다.
-![ex_screenshot](./img/3.png)
+<img src="./img/3.png" width="400"/>
 질문을 되물어 질문에 대한 팁을 받습니다.
-
-## Initial Setup:
 
 ### 가상 환경을 만들어 줍니다.
 
@@ -47,8 +45,10 @@ $ (venv) python
 $ (venv) python train.py
 ```
 
-<img src="./img/train.png" width="200" height="400"/>
+<img src="./img/train.png" width="400"/>
 
 ### 커멘드 라인에서 예시로 테스트를 해볼 수 있도록 하였습니다.
 
+```
 $ (venv) python chat.py
+```
