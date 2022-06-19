@@ -4,6 +4,16 @@
 
 http://3.39.248.195/ - 이 IP에 현재 배포되어 있는 상태입니다.
 
+## 서비스 설계
+
+- standalone-frontend, static, templates 폴더 - 프론트엔드 코드
+- model.py - Linear층을 쌓아 NeuralNet 모델을 설계한 class
+- app.py - Flask를 활용한 웹 API 설계
+- train.py - 실제로 train, 모델을 불러와서 train을 시킴
+- nltk_utils.py - 모델에서 쓰일 함수들을 정의
+- chat.py - 실제로 predict를 하는 파일
+- intents.json - 앞에서 생성한 데이터 파일
+
 ## 사용방법
 
 <img src="./img/0.png" width="400"/>

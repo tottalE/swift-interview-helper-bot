@@ -16,14 +16,7 @@ def stem(word):
 
     return stemmer.stem(word.lower())
 
-"""
-    return bag of words array:
-    1 for each known word that exists in the sentence, 0 otherwise
-    example:
-    sentence = ["hello", "how", "are", "you"]
-    words = ["hi", "hello", "I", "you", "bye", "thank", "cool"]
-    bog   = [  0 ,    1 ,    0 ,   1 ,    0 ,    0 ,      0]
-    """
+
 #존재하는 단어에 대해 bag을 만듬
 def bag_of_words(tokenized_sentence, words):
     
